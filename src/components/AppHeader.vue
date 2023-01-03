@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">nFlow</a>
+      <a class="navbar-brand" href="/">nFlow</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -17,8 +17,7 @@
         <div class="navbar-nav">
           <a class="nav-link px-3" href="#">Workflow Instances</a>
           <a class="nav-link px-3" href="#">Workflow Definitions</a>
-          <a class="nav-link px-3" href="#">Executors</a>
-          <a class="nav-link px-3" href="#">About</a>
+          <a class="nav-link px-3" href="/executors">Executors</a>
         </div>
       </div>
     </div>
