@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-ms-12">
                 <h1>nFlow Dashboard</h1>
-                <p>See <a href="https://nflow.io/">nflow.io</a> for more details about nFlow.
+                <p>See <a :href="nflowLink">nflow.io</a> for more details about nFlow.
                 <br>
-                For support, please send a message to <a href="https://groups.google.com/g/nflow-users">nFlow mailing list</a>.
+                For support, please send a message to <a :href="nflowMailingList">nFlow mailing list</a>.
                 <br>
-                nFlow development happens in <a href="https://github.com/NitorCreations/nflow">GitHub</a>.</p>
+                nFlow development happens in <a :href="nflowGithub">GitHub</a>.</p>
             </div>
         </div>
     </div>
@@ -15,6 +15,13 @@
 
 <script>
 export default {
-    name: 'app-about'
+    name: 'app-about',
+    data() {
+        return {
+            nflowLink: 'https://nflow.io/',
+            nflowMailingList: 'https://groups.google.com/g/nflow-users',
+            nflowGithub: 'https://github.com/NitorCreations/nflow'
+        }
+    }
 }
 </script>
