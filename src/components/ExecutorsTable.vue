@@ -1,42 +1,90 @@
 <template>
     <div class="container pt-4 mt-4">
-        <div class="row">
+        <div class="row d-none d-md-block">
             <div class="col-md-12">
-                <table class="table table-hover table-responsive-md">
-                    <thead>
-                        <tr>
-                            <th class="align-middle" scope="col"></th>
-                            <th class="align-middle" scope="col">#</th>
-                            <th class="align-middle" scope="col">Host</th>
-                            <th class="align-middle" scope="col">Process ID</th>
-                            <th class="align-middle" scope="col">Executor Group</th>
-                            <th class="align-middle" scope="col">Started</th>
-                            <th class="align-middle" scope="col">Stopped</th>
-                            <th class="align-middle" scope="col">Activity Hearbeat</th>
-                            <th class="align-middle" scope="col">Hearbeat Expires</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="instance in instances" :key="instance.id">
-                            <td class="align-middle">
-                                <font-awesome-icon class="text-success" v-if="instance.stopped == null" icon="fa-solid fa-check" />
-                                <font-awesome-icon class="text-danger" v-if="instance.stopped != null" icon="fa-solid fa-xmark" />
-                            </td>
-                            <td class="align-middle" scope="row">{{instance.id}}</td>
-                            <td class="align-middle" scope="row">{{instance.host}}</td>
-                            <td class="align-middle" scope="row">{{instance.pid}}</td>
-                            <td class="align-middle" scope="row">{{instance.executorGroup}}</td>
-                            <td class="align-middle" scope="row">{{moment(instance.started).format('llll')}}</td>
-                            <td class="align-middle" scope="row">{{moment(instance.stopped).format('llll')}}</td>
-                            <td class="align-middle" scope="row">{{moment(instance.active).format('llll')}}</td>
-                            <td class="align-middle" scope="row">{{moment(instance.expires).format('llll')}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th class="align-middle" scope="col"></th>
+                                <th class="align-middle" scope="col">#</th>
+                                <th class="align-middle" scope="col">Host</th>
+                                <th class="align-middle" scope="col">Process ID</th>
+                                <th class="align-middle" scope="col">Executor Group</th>
+                                <th class="align-middle" scope="col">Started</th>
+                                <th class="align-middle" scope="col">Stopped</th>
+                                <th class="align-middle" scope="col">Activity Hearbeat</th>
+                                <th class="align-middle" scope="col">Hearbeat Expires</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="instance in instances" :key="instance.id">
+                                <td class="align-middle">
+                                    <font-awesome-icon class="text-success" v-if="instance.stopped == null" icon="fa-solid fa-check" />
+                                    <font-awesome-icon class="text-danger" v-if="instance.stopped != null" icon="fa-solid fa-xmark" />
+                                </td>
+                                <td class="align-middle" scope="row">{{instance.id}}</td>
+                                <td class="align-middle" scope="row">{{instance.host}}</td>
+                                <td class="align-middle" scope="row">{{instance.pid}}</td>
+                                <td class="align-middle" scope="row">{{instance.executorGroup}}</td>
+                                <td class="align-middle" scope="row">{{moment(instance.started).format('l LTS')}}</td>
+                                <td class="align-middle" scope="row">{{moment(instance.stopped).format('l LTS')}}</td>
+                                <td class="align-middle" scope="row">{{moment(instance.active).format('l LTS')}}</td>
+                                <td class="align-middle" scope="row">{{moment(instance.expires).format('l LTS')}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
         </div>
-        
+        <div class="row d-block d-md-none">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody class="table-light" v-for="instance in instances" :key="instance.id">
+                            <tr>
+                                <th scope="row">
+                                    <font-awesome-icon class="text-success" v-if="instance.stopped == null" icon="fa-solid fa-check" />
+                                    <font-awesome-icon class="text-danger" v-if="instance.stopped != null" icon="fa-solid fa-xmark" />
+                                    #{{instance.id}}
+                                </th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th class="border-end" scope="row">Host</th>
+                                <td>{{instance.host}}</td>
+                            </tr>
+                            <tr>
+                                <th class="border-end" scope="row">Process ID</th>
+                                <td>{{instance.pid}}</td>
+                            </tr>
+                            <tr>
+                                <th class="border-end" scope="row">Executor Group</th>
+                                <td>{{instance.executorGroup}}</td>
+                            </tr>
+                            <tr>
+                                <th class="border-end" scope="row">Started</th>
+                                <td>{{instance.started}}</td>
+                            </tr>
+                            <tr>
+                                <th class="border-end" scope="row">Stopped</th>
+                                <td>{{instance.stopped}}</td>
+                            </tr>
+                            <tr>
+                                <th class="border-end" scope="row">Activity Hearbeat</th>
+                                <td>{{instance.active}}</td>
+                            </tr>
+                            <tr>
+                                <th class="border-end" scope="row">Hearbeat Expires</th>
+                                <td>{{instance.expires}}</td>
+                                <br>
+                            </tr>
+                            <br>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>    
 </template>
 
@@ -127,9 +175,6 @@ export default {
         };
     },
     methods: {
-        formatDate(){
-            console.log(moment().format('dddd'))
-        }
     }
     // mounted() {
     //     // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -156,4 +201,5 @@ export default {
 </script>
 
 <style>
+
 </style>
