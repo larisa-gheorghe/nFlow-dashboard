@@ -18,6 +18,7 @@ import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 library.add(faCheck, faXmark)
 
 
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -29,5 +30,4 @@ const router = createRouter({
 const app = createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
 app.use(router)
-
 app.mount('#app')

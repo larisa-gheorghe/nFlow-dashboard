@@ -26,10 +26,10 @@
                             <td class="align-middle" scope="row">{{instance.host}}</td>
                             <td class="align-middle" scope="row">{{instance.pid}}</td>
                             <td class="align-middle" scope="row">{{instance.executorGroup}}</td>
-                            <td class="align-middle" scope="row">{{instance.started}}</td>
-                            <td class="align-middle" scope="row">{{instance.stopped}}</td>
-                            <td class="align-middle" scope="row">{{instance.active}}</td>
-                            <td class="align-middle" scope="row">{{instance.expires}}</td>
+                            <td class="align-middle" scope="row">{{moment(instance.started).format('llll')}}</td>
+                            <td class="align-middle" scope="row">{{moment(instance.stopped).format('llll')}}</td>
+                            <td class="align-middle" scope="row">{{moment(instance.active).format('llll')}}</td>
+                            <td class="align-middle" scope="row">{{moment(instance.expires).format('llll')}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -41,12 +41,14 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
+import moment from "moment"
 
 export default {
     name: "executors-table",
     data() {
         return {
+            moment,
             instances: [
                 {
                 id: 1,
@@ -125,6 +127,9 @@ export default {
         };
     },
     methods: {
+        formatDate(){
+            console.log(moment().format('dddd'))
+        }
     }
     // mounted() {
     //     // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
