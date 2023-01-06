@@ -16,7 +16,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <router-link class="nav-item nav-link px-3" to="#">Workflow Instances</router-link>
-          <router-link class="nav-item nav-link px-3" to="#">Workflow Definitions</router-link>
+          <router-link class="nav-item nav-link px-3" to="/workflow-definitions">Workflow Definitions</router-link>
           <router-link class="nav-item nav-link px-3" to="/executors">Executors</router-link>
         </div>
       </div>
