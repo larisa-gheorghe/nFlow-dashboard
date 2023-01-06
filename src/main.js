@@ -24,7 +24,8 @@ const router = createRouter({
     routes: [
         { path: '/', component: AppAbout},
         { path: '/executors', component: ExecutorsTable}
-    ]
+    ],
+    base: '/nFlow-dashboard'
 });
 
 const app = createApp(App)
