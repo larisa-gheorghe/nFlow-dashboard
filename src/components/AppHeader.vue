@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">nFlow</a>
+      <router-link class="navbar-brand" to="/">nFlow</router-link>
       <button
         class="navbar-toggler"
         type="button"
