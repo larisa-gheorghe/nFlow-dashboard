@@ -1,8 +1,5 @@
-// const { defineConfig } = require('@vue/cli-service')
-// module.exports = defineConfig({
-//   transpileDependencies: true,
-//   publicPath: '/nFlow-dashboard/'
-// })
-module.exports = {
-  publicPath: '/vue-music-app/',
-}
+const { defineConfig } = require('@vue/cli-service')
+module.exports = defineConfig({
+  transpileDependencies: true,
+  publicPath: '/nFlow-dashboard/'
+})
