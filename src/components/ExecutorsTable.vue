@@ -27,10 +27,10 @@
                                 <td class="align-middle" scope="row">{{instance.host}}</td>
                                 <td class="align-middle" scope="row">{{instance.pid}}</td>
                                 <td class="align-middle" scope="row">{{instance.executorGroup}}</td>
-                                <td class="align-middle" scope="row">{{moment(instance.started).format('l LTS')}}</td>
-                                <td class="align-middle" scope="row">{{moment(instance.stopped).format('l LTS')}}</td>
-                                <td class="align-middle" scope="row">{{moment(instance.active).format('l LTS')}}</td>
-                                <td class="align-middle" scope="row">{{moment(instance.expires).format('l LTS')}}</td>
+                                <td class="align-middle" scope="row">{{stoppedDate(instance.started)}}</td>
+                                <td class="align-middle" scope="row">{{stoppedDate(instance.stopped)}}</td>
+                                <td class="align-middle" scope="row">{{stoppedDate(instance.active)}}</td>
+                                <td class="align-middle" scope="row">{{stoppedDate(instance.expires)}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -64,19 +64,19 @@
                             </tr>
                             <tr>
                                 <th class="border-end" scope="row">Started</th>
-                                <td>{{instance.started}}</td>
+                                <td>{{stoppedDate(instance.started)}}</td>
                             </tr>
                             <tr>
                                 <th class="border-end" scope="row">Stopped</th>
-                                <td>{{instance.stopped}}</td>
+                                <td>{{stoppedDate(instance.stopped)}}</td>
                             </tr>
                             <tr>
                                 <th class="border-end" scope="row">Activity Hearbeat</th>
-                                <td>{{instance.active}}</td>
+                                <td>{{stoppedDate(instance.active)}}</td>
                             </tr>
                             <tr>
                                 <th class="border-end" scope="row">Hearbeat Expires</th>
-                                <td>{{instance.expires}}</td>
+                                <td>{{stoppedDate(instance.expires)}}</td>
                                 <br>
                             </tr>
                             <br>
@@ -175,6 +175,11 @@ export default {
         };
     },
     methods: {
+        stoppedDate(date) {
+            if (date == null) {
+                return null
+            } else return moment(date).format('l LTS')
+        }
     }
     // mounted() {
     //     // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';

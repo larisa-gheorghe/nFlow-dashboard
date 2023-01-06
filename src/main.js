@@ -20,7 +20,7 @@ library.add(faCheck, faXmark)
 
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory('/nFlow-dashboard'),
     routes: [
         { path: '/', component: AppAbout},
         { path: '/executors', component: ExecutorsTable}
