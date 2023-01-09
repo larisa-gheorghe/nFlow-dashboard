@@ -13,42 +13,42 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a href="#" class="text-decoration-none">bulk</a></td>
+                                <td><a href="#" class="icons text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details">bulk</a></td>
                                 <td class="d-none d-md-table-cell">Executes child workflows in bulk but gracefully without effecting non-bulk tasks.</td>
                                 <td>
-                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
+                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create workflow instance" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
                                     <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-magnifying-glass" /></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td><a href="#" class="text-decoration-none">creditDecision</a></td>
+                                <td><a href="#" class="icons text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details">creditDecision</a></td>
                                 <td class="d-none d-md-table-cell"></td>
                                 <td>
-                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
+                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create workflow instance" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
                                     <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-magnifying-glass" /></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td><a href="#" class="text-decoration-none">nFlowMainetance</a></td>
+                                <td><a href="#" class="icons text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details">nFlowMainetance</a></td>
                                 <td class="d-none d-md-table-cell">Clean up workflow instances periodically.</td>
                                 <td>
-                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
+                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create workflow instance" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
                                     <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-magnifying-glass" /></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td><a href="#" class="text-decoration-none">processCreditApplication</a></td>
+                                <td><a href="#" class="icons text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details">processCreditApplication</a></td>
                                 <td class="d-none d-md-table-cell">Makes credit decision, creates loan, deposits the money and updates credit application</td>
                                 <td>
-                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
+                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create workflow instance" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
                                     <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-magnifying-glass" /></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td><a href="#" class="text-decoration-none">withdrawLoan</a></td>
+                                <td><a href="#" class="icons text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details">withdrawLoan</a></td>
                                 <td class="d-none d-md-table-cell">Creates loan, deposits the money and updates credit application</td>
                                 <td>
-                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
+                                    <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create workflow instance" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-plus" /></a>
                                     <a class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search" href="#"><font-awesome-icon class="m-2" icon="fa-solid fa-magnifying-glass" /></a>
                                 </td>
                             </tr>
