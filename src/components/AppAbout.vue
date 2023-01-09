@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-ms-12">
                 <h1>nFlow Dashboard</h1>
-                <p>See <a :href="nflowLink">nflow.io</a> for more details about nFlow.
+                <p>See <a :href="nflowLink" class="text-decoration-none">nflow.io</a> for more details about nFlow.
                 <br>
-                For support, please send a message to <a :href="nflowMailingList">nFlow mailing list</a>.
+                For support, please send a message to <a :href="nflowMailingList" class="text-decoration-none">nFlow mailing list</a>.
                 <br>
-                nFlow development happens in <a :href="nflowGithub">GitHub</a>.</p>
+                nFlow development happens in <a :href="nflowGithub" class="text-decoration-none">GitHub</a>.</p>
             </div>
         </div>
     </div>
