@@ -16,11 +16,9 @@ library.add(faCheck, faXmark, faMagnifyingGlass, faPlus)
 /* fontawesome */
 
 const router = createRouter({
-    history: createWebHistory('/nFlow-dashboard'),
     routes: [
         { path: '/', component: AppAbout},
         { path: '/executors', component: ExecutorsTable},
-        { path: '/nFlow-dashboard/executors', component: ExecutorsTable},
         { path: '/workflow-definitions', component: WorkflowDefinitions},
         { path: '/workflow-definitions/bulk-details', component: BulkDetails}
     ],
