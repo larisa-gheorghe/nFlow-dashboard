@@ -16,6 +16,7 @@ library.add(faCheck, faXmark, faMagnifyingGlass, faPlus)
 /* fontawesome */
 
 const router = createRouter({
+    history: createWebHistory(),
     routes: [
         { path: '/', component: AppAbout},
         { path: '/executors', component: ExecutorsTable},
