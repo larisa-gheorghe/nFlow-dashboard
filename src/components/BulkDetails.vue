@@ -121,7 +121,7 @@
                                 </tr>
                                 <tr class="text-secondary">
                                     <td>Total</td>
-                                    <td colspan="4"></td>
+                                    <td colspan="6"></td>
                                 </tr>
                             </tbody>
                         </table>
