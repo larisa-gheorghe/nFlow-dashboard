@@ -1,11 +1,7 @@
 import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
-
 import App from './App.vue'
-import ExecutorsTable from './components/ExecutorsTable.vue'
-import AppAbout from './components/AppAbout.vue'
-import WorkflowDefinitions from './components/WorkflowDefinitions.vue'
-import BulkDetails from './components/BulkDetails.vue'
+
+import router from './router';
 
 /* fontawesome */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -14,16 +10,6 @@ import { faCheck, faXmark, faMagnifyingGlass, faPlus } from '@fortawesome/free-s
 
 library.add(faCheck, faXmark, faMagnifyingGlass, faPlus)
 /* fontawesome */
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-        { path: '/', component: AppAbout},
-        { path: '/executors', component: ExecutorsTable},
-        { path: '/workflow-definitions', component: WorkflowDefinitions},
-        { path: '/workflow-definitions/bulk-details', component: BulkDetails}
-    ],
-});
 
 const app = createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
