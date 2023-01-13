@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid m-4" v-if="dataReady">
+    <div class="container-fluid m-6" v-if="dataReady">
         <span class = "m-0" v-for="instance in instances" :key="instance.type">
             <div class="row m-2">
                 <h3>{{ instance.type }}
@@ -22,7 +22,7 @@
                     <p m-2>{{ instance.description }}</p>
                     <p>GRAFIC</p>
                 </div>
-                <div class="col-12 col-md-6 mb-2">
+                <div class="col-12 col-md-6 shadow p-3 mb-5 bg-body-tertiary rounded">
                     <h5>Instance Statistics</h5>
                     <div class="table-responsive rounded p-2">
                         <table id="statisticsTable" class="table table-hover">
@@ -40,12 +40,14 @@
                             <tbody>
                                 <tr>
                                     <td>splitWork</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.splitWork?.created1?.allInstances)}}</td>
+                                    <td class="text-center">{{ isZero(stateStatistics?.splitWork?.created1?.allInstances) || 0}}</td>
                                     <td class="text-center">{{ isZero(stateStatistics?.splitWork?.inProgress?.allInstances)}}</td>
                                     <td class="text-center">{{ isZero(stateStatistics?.splitWork?.executing?.allInstances) }}</td>
                                     <td class="text-center">{{ isZero(stateStatistics?.splitWork?.manual?.allInstances) }}</td>
                                     <td class="text-center">{{ isZero(stateStatistics?.splitWork?.finished?.allInstances) }}</td>
-                                    <td id="val">{{ rowSum() }}</td>
+                                    <td id="val">
+                                        {{ rowSum(stateStatistics?.splitWork?.created1?.allInstances, stateStatistics?.splitWork?.inProgress?.allInstances) }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>waitForChildrenToFinish</td>
@@ -74,51 +76,6 @@
                                     <td class="text-center">{{ isZero(stateStatistics?.error?.finished?.allInstances) }}</td>
                                     <td></td>
                                 </tr>
-                                <tr>
-                                    <td>created</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.created?.created?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.created?.inProgress?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.created?.executing?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.created?.manual?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.created?.finished?.allInstances) }}</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>inProgress</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.inProgress?.created?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.inProgress?.inProgress?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.inProgress?.executing?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.inProgress?.manual?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.inProgress?.finished?.allInstances) }}</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>executing</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.executing?.created?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.executing?.inProgress?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.executing?.executing?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.executing?.manual?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.executing?.finished?.allInstances) }}</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>manual</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.manual?.created?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.manual?.inProgress?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.manual?.executing?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.manual?.manual?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.manual?.finished?.allInstances) }}</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>finished</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.finished?.created?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.finished?.inProgress?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.finished?.executing?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.finished?.manual?.allInstances) }}</td>
-                                    <td class="text-center">{{ isZero(stateStatistics?.finished?.finished?.allInstances) }}</td>
-                                    <td></td>
-                                </tr>
                                 <tr class="text-secondary">
                                     <td>Total</td>
                                     <td colspan="6"></td>
@@ -130,7 +87,7 @@
             </div>
             <div class="row m-2">
                 <div class="col-none col-md-6"></div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 shadow p-3 mb-5 bg-body-tertiary rounded">
                     <h5>Settings</h5>
                     <div class="table-responsive rounded">
                         <table id="settingsTable" class="table table-hover">
@@ -164,6 +121,7 @@
 
 <script>
 import axios from "axios"
+import { ref } from "vue"
 
 export default {
     name: 'bulk-details',
@@ -199,23 +157,16 @@ export default {
 
         const  statistics = await axios.get(bulkStats, {dataType: "json" })
         this.stateStatistics = statistics?.data?.stateStatistics
-        
+
         this.dataReady = true
     },
     methods: {
         isZero(value) {
-            if ( value == 0 ) return null
+            if ( value == 0 || value == '' ) return null
             else return value
         },
-        rowSum() {
-            const statsTable = document.getElementById("statisticsTable")
+        rowSum(cell1, cell2) {
         }
     }
 }
 </script>
-
-<style>
-    #settingsTable, #statsTable {
-        box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%); 
-    }
-</style>
