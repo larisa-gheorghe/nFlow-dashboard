@@ -48,104 +48,47 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>splitWork</td>
-                  <td class="text-center">
-                    {{ stateStatistics?.splitWork?.created?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.splitWork?.inProgress?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{  stateStatistics?.splitWork?.executing?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.splitWork?.manual?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.splitWork?.finished?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ calculateRowSums("splitWork") }}
-                  </td>
+                <tr v-for="(stateStats, stateStatsKey) in stateStatistics" :key="stateStats">
+                    <td>{{ stateStatsKey }}</td>
+                    <td class="text-center">
+                        {{ stateStats?.created?.allInstances || "" }}
+                    </td>
+                    <td class="text-center">
+                        {{ stateStats?.inProgress?.allInstances || "" }}
+                    </td>
+                    <td class="text-center">
+                        {{ stateStats?.executing?.allInstances || "" }}
+                    </td>
+                    <td class="text-center">
+                        {{ stateStats?.manual?.allInstances || "" }}
+                    </td>
+                    <td class="text-center">
+                        {{ stateStats?.finished?.allInstances || "" }}
+                    </td>
+                    <td class="text-center">
+                        {{ calculateRowSums(stateStatsKey) }}
+                    </td>
                 </tr>
                 <tr>
-                  <td>waitForChildrenToFinish</td>
-                  <td class="text-center">
-                    {{ stateStatistics?.waitForChildrenToFinish?.created?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.waitForChildrenToFinish?.inProgress?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.waitForChildrenToFinish?.executing?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.waitForChildrenToFinish?.manual?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.waitForChildrenToFinish?.finished?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{
-                      calculateRowSums("waitForChildrenToFinish")
-                    }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>done</td>
-                  <td class="text-center">
-                    {{ stateStatistics?.done?.created?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.done?.inProgress?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.done?.executing?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.done?.manual?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.done?.finished?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{
-                      calculateRowSums("done")
-                    }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>error</td>
-                  <td class="text-center">
-                    {{ stateStatistics?.error?.created?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.error?.inProgress?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.error?.executing?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.error?.manual?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{ stateStatistics?.error?.finished?.allInstances || "" }}
-                  </td>
-                  <td class="text-center">
-                    {{
-                      calculateRowSums("error")
-                    }}
-                  </td>
-                </tr>
-                <tr class="text-secondary">
-                  <td>Total</td>
-                  <td class="text-center">{{ columnSums.created }}</td>
-                  <td class="text-center">{{ columnSums.inProgress }}</td>
-                  <td class="text-center">{{ columnSums.executing }}</td>
-                  <td class="text-center">{{ columnSums.manual }}</td>
-                  <td class="text-center">{{ columnSums.finished }}</td>
-                  <td class="text-center">{{ columnSums.total }}</td>
+                    <td>Total</td>
+                    <td class="text-center">
+                        {{ calculateColumnSums().created }}
+                    </td>
+                    <td class="text-center">
+                        {{ calculateColumnSums().inProgress }}
+                    </td>
+                    <td class="text-center">
+                        {{ calculateColumnSums().executing }}
+                    </td>
+                    <td class="text-center">
+                        {{ calculateColumnSums().manual }}
+                    </td>
+                    <td class="text-center">
+                        {{ calculateColumnSums().finished }}
+                    </td>
+                    <td class="text-center">
+                        {{ calculateColumnSums().total }}
+                    </td>
                 </tr>
               </tbody>
             </table>
@@ -165,21 +108,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>transitionDelaysInMilliseconds</td>
-                  <td>
-                    <pre>{{
-                      instance?.settings?.transitionDelaysInMilliseconds
-                    }}</pre>
-                  </td>
-                </tr>
-                <tr>
-                  <td>maxRetries</td>
-                  <td>{{ instance?.settings?.maxRetries }}</td>
-                </tr>
-                <tr>
-                  <td>defaultPriority</td>
-                  <td>{{ instance?.settings?.defaultPriority }}</td>
+                <tr v-for="(setting, settingKey) in settings" :key="setting">
+                    <td>{{ settingKey }}</td>
+                    <td><pre>{{ setting }}</pre></td>
                 </tr>
               </tbody>
             </table>
@@ -192,7 +123,6 @@
 
 <script>
 import axios from "axios";
-import { ref } from "vue";
 
 export default {
   name: "bulk-details",
@@ -200,29 +130,43 @@ export default {
     return {
       dataReady: false,
       instance: [],
+      states: {},
       statistics: {},
       stateStatistics: {},
       columnSums: {},
+      settings: {},
     };
   },
   async beforeMount() {
-    const workflowDefinition =
-      "https://bank.nflow.io/nflow/api/v1/workflow-definition?type=bulk";
-    const bulkStats =
-      "https://bank.nflow.io/nflow/api/v1/statistics/workflow/bulk";
+    const workflowDef = "https://bank.nflow.io/nflow/api/v1/workflow-definition?type=bulk";
+    const workflowStats = "https://bank.nflow.io/nflow/api/v1/statistics/workflow/bulk";
 
-    const instance = await axios.get(workflowDefinition, { dataType: "json" });
+    const instance = await axios.get(workflowDef, { dataType: "json" });
     this.instance = instance?.data[0];
+    this.states = instance?.data[0].states;
+    this.settings = instance?.data[0].settings;
 
-    const statistics = await axios.get(bulkStats, { dataType: "json" });
+    const statistics = await axios.get(workflowStats, { dataType: "json" });
     this.stateStatistics = statistics?.data?.stateStatistics;
 
     this.dataReady = true;
 
     this.columnSums = this.calculateColumnSums();
-    this.calculateRowSums("splitWork");
+    this.mergeData()
   },
   methods: {
+    mergeData() {
+      for (let stepValue in this.states) {
+          if (!this.stateStatistics[this.states[stepValue].id]){ 
+              this.stateStatistics[this.states[stepValue].id] = {
+                  created:{allInstances: 0},
+                  executing:{allInstances: 0},
+                  finished:{allInstances: 0},
+                  inProgress:{allInstances: 0},
+                  manual:{allInstances: 0}}
+          }  
+      }
+    },
     calculateRowSums(state) {
       let sum = 0;
       if (this.stateStatistics[state] == undefined) {
@@ -238,15 +182,16 @@ export default {
     calculateColumnSums() {
       const columns = {
         created: 0,
-        executing: 0,
-        finished: 0,
         inProgress: 0,
+        executing: 0,
         manual: 0,
+        finished: 0,
       };
 
       for (const column in columns) {
         for (const stateStatValue of Object.values(this.stateStatistics)) {
           columns[column] += stateStatValue[column].allInstances;
+          
         }
       }
 
