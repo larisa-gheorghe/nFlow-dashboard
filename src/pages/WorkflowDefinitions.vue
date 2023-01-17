@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-4 mt-4">
+  <div class="container pt-4 mt-4" v-show="dataReady">
     <div class="row">
       <div class="col-md-12">
         <div class="table-responsive">
@@ -12,18 +12,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="allWorkflow in allWorkflows" :key="allWorkflow">
                 <td>
                   <router-link
-                    to="/workflow-definitions/bulk-details"
+                    :to="`/workflow-definitions/${allWorkflow.type}`"
                     class="icons text-decoration-none text-center"
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details"
                     @click="hideTooltip()">
-                    bulk</router-link>
+                    {{ allWorkflow.type }}</router-link>
                 </td>
                 <td class="d-none d-md-table-cell">
-                  Executes child workflows in bulk but gracefully without
-                  effecting non-bulk tasks.
+                  {{ allWorkflow.description }}
                 </td>
                 <td>
                   <a
@@ -33,155 +32,13 @@
                     <font-awesome-icon class="m-2" icon="fa-solid fa-plus"
                   /></a>
                   <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
+                    class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="Search"
                     href="#">
                     <font-awesome-icon
                       class="m-2"
                       icon="fa-solid fa-magnifying-glass"/>
                     </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a
-                    href="#"
-                    class="icons text-decoration-none"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Details"
-                    >creditDecision</a
-                  >
-                </td>
-                <td class="d-none d-md-table-cell"></td>
-                <td>
-                  <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Create workflow instance"
-                    href="#"
-                    ><font-awesome-icon class="m-2" icon="fa-solid fa-plus"
-                  /></a>
-                  <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Search"
-                    href="#"
-                    ><font-awesome-icon
-                      class="m-2"
-                      icon="fa-solid fa-magnifying-glass"
-                  /></a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a
-                    href="#"
-                    class="icons text-decoration-none"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Details"
-                    >nFlowMainetance</a
-                  >
-                </td>
-                <td class="d-none d-md-table-cell">
-                  Clean up workflow instances periodically.
-                </td>
-                <td>
-                  <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Create workflow instance"
-                    href="#"
-                    ><font-awesome-icon class="m-2" icon="fa-solid fa-plus"
-                  /></a>
-                  <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Search"
-                    href="#"
-                    ><font-awesome-icon
-                      class="m-2"
-                      icon="fa-solid fa-magnifying-glass"
-                  /></a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a
-                    href="#"
-                    class="icons text-decoration-none"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Details"
-                    >processCreditApplication</a
-                  >
-                </td>
-                <td class="d-none d-md-table-cell">
-                  Makes credit decision, creates loan, deposits the money and
-                  updates credit application
-                </td>
-                <td>
-                  <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Create workflow instance"
-                    href="#"
-                    ><font-awesome-icon class="m-2" icon="fa-solid fa-plus"
-                  /></a>
-                  <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Search"
-                    href="#"
-                    ><font-awesome-icon
-                      class="m-2"
-                      icon="fa-solid fa-magnifying-glass"
-                  /></a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a
-                    href="#"
-                    class="icons text-decoration-none"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Details"
-                    >withdrawLoan</a
-                  >
-                </td>
-                <td class="d-none d-md-table-cell">
-                  Creates loan, deposits the money and updates credit
-                  application
-                </td>
-                <td>
-                  <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Create workflow instance"
-                    href="#"
-                    ><font-awesome-icon class="m-2" icon="fa-solid fa-plus"
-                  /></a>
-                  <a
-                    class="icons"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Search"
-                    href="#"
-                    ><font-awesome-icon
-                      class="m-2"
-                      icon="fa-solid fa-magnifying-glass"
-                  /></a>
                 </td>
               </tr>
             </tbody>
@@ -193,10 +50,24 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "workflow-definitions",
   data() {
-    return {};
+    return {
+      dataReady: false,
+      allWorkflows: {},
+      urls: {}
+    };
+  },
+  async beforeMount() {
+    const workflowDefinition = "https://bank.nflow.io/nflow/api/v1/workflow-definition"
+
+    const allWorkflows = await axios.get(workflowDefinition, { dataType: "json" })
+    this.allWorkflows = allWorkflows?.data
+
+    this.dataReady = true;
   },
   mounted() {
     const signs = document.querySelectorAll(".icons");

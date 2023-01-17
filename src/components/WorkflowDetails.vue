@@ -1,22 +1,18 @@
 <template>
-  <div class="container-fluid m-6" v-show="dataReady">
+    <div class="container-fluid m-6" v-show="dataReady">
     <span class="m-0">
       <div class="row m-2">
         <h3>
           {{ instance?.type }}
           <a
-            class="icons"
-            data-bs-toggle="tooltip"
-            data-bs-placement="bottom"
+            class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom"
             title="Create workflow instance"
             href="#"
           >
             <font-awesome-icon class="m-2" icon="fa-solid fa-plus" />
           </a>
           <a
-            class="icons"
-            data-bs-toggle="tooltip"
-            data-bs-placement="bottom"
+            class="icons" data-bs-toggle="tooltip" data-bs-placement="bottom"
             title="Search"
             href="#"
           >
@@ -125,21 +121,30 @@
 import axios from "axios";
 
 export default {
-  name: "bulk-details",
-  data() {
-    return {
-      dataReady: false,
-      instance: [],
-      states: {},
-      statistics: {},
-      stateStatistics: {},
-      columnSums: {},
-      settings: {},
-    };
+    name: 'workflow-details',
+    props: {
+        workflowType: {type: String, required: true}
+    },
+    data() {
+        return {
+        dataReady: false,
+        allWorkflows: {},
+        instance: [],
+        states: {},
+        statistics: {},
+        stateStatistics: {},
+        columnSums: {},
+        settings: {},
+        };
   },
   async beforeMount() {
-    const workflowDef = "https://bank.nflow.io/nflow/api/v1/workflow-definition?type=bulk";
-    const workflowStats = "https://bank.nflow.io/nflow/api/v1/statistics/workflow/bulk";
+    const workflowDefinition = "https://bank.nflow.io/nflow/api/v1/workflow-definition"
+
+    const allWorkflows = await axios.get(workflowDefinition, { dataType: "json" })
+    this.allWorkflows = allWorkflows?.data
+
+    let workflowDef = `https://bank.nflow.io/nflow/api/v1/workflow-definition?type=${this.workflowType}`;
+    let workflowStats = `https://bank.nflow.io/nflow/api/v1/statistics/workflow/${this.workflowType}`;
 
     const instance = await axios.get(workflowDef, { dataType: "json" });
     this.instance = instance?.data[0];
@@ -199,5 +204,5 @@ export default {
       return columns;
     },
   },
-};
+}
 </script>

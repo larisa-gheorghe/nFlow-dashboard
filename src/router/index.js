@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ExecutorsTable from '../pages/ExecutorsTable.vue'
 import AppAbout from '../pages/AppAbout.vue'
 import WorkflowDefinitions from '../pages/WorkflowDefinitions.vue'
-import BulkDetails from '../pages/BulkDetails.vue'
+import WorkflowDetails from '../components/WorkflowDetails.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -11,7 +11,7 @@ const router = createRouter({
         { path: '/', component: AppAbout},
         { path: '/executors', component: ExecutorsTable},
         { path: '/workflow-definitions', component: WorkflowDefinitions},
-        { path: '/workflow-definitions/bulk-details', component: BulkDetails}
+        { path: '/workflow-definitions/:workflowType', component: WorkflowDetails, props: true}
     ],
 });
 
