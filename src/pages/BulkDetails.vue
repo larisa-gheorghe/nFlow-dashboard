@@ -65,11 +65,11 @@
                     <td class="text-center">
                         {{ stateStats?.finished?.allInstances || "" }}
                     </td>
-                    <td class="text-center">
+                    <td class="text-center text-body-tertiary">
                         {{ calculateRowSums(stateStatsKey) }}
                     </td>
                 </tr>
-                <tr>
+                <tr class="text-body-tertiary">
                     <td>Total</td>
                     <td class="text-center">
                         {{ calculateColumnSums().created }}
