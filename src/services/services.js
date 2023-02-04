@@ -1,30 +1,33 @@
-// import axios
-// export class from file
-// create instance of class in any component that need to
-// interact with the api.
-class ApiService{
-    constructor(url) {
-        // todo: api url when creating object, https://bank.nflow.io/nflow/api/v1/
-        this.url = url
+import axios from "axios"
+
+export default class ApiService{
+    constructor(baseUrl) {
+        this.baseUrl = baseUrl
+    }
+    getWorkflowDefinition() {
+        const workflowDefinition = `${this.baseUrl}/workflow-definition`
+        return axios.get(workflowDefinition, { dataType: "json" })
     }
 
-    getWorkflowDefinitions() {
-        //todo: use axios, get definitions, return object
+    getWorkflowType(type) {
+        let workflowTypeName = `${this.baseUrl}/workflow-definition?type=${type}`
+        return axios.get(workflowTypeName, { dataType: "json" });
+
     }
 
-    getWorkflowDefinition(workflowType) {
-        //todo: use axios, get a specific workflow definitions, return object
-    }
-
-    getWorkflowStatistics(workflowType) {
-        // todo: use axios, get a specific workflow statistics, return object
+    getWorkflowStatistics(type) {
+        let workflowStats = `${this.baseUrl}/statistics/workflow/${type}`
+        return axios.get(workflowStats, { dataType: "json" });
     }
 
     getWorkflowExecutors() {
-        // todo: use axios, get workflow executors, return object
+        const workflowExecutors = `${this.baseUrl}/workflow-executor`
+        return axios.get(workflowExecutors, {dataType: "json",})
     }
 
-    // todo: add here any other needed methos when interacting
-    // with the api
+    getWorkflowInstance() {
+        const workflowInstance = `${this.baseUrl}/workflow-instance`
+        return axios.get(workflowInstance, {dataType: "json",})
+    }
 
 }

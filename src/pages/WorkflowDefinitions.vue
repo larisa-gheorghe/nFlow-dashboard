@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import ApiService from '../services/services.js'
 
 export default {
   name: "workflow-definitions",
@@ -58,19 +58,18 @@ export default {
     return {
       dataReady: false,
       allWorkflows: {},
-      urls: {}
+      urls: {},
+      apiService: new ApiService("https://bank.nflow.io/nflow/api/v1")
     };
   },
   async beforeMount() {
-    const workflowDefinition = "https://bank.nflow.io/nflow/api/v1/workflow-definition"
+    const { data } = await this.apiService.getWorkflowDefinition()
+    this.allWorkflows = data
 
-    const allWorkflows = await axios.get(workflowDefinition, { dataType: "json" })
-    this.allWorkflows = allWorkflows?.data
-
-    this.dataReady = true;
+    this.dataReady = true
   },
   mounted() {
-    const signs = document.querySelectorAll(".icons");
+    const signs = document.querySelectorAll(".icons")
     for (let sign of signs) {
       const tooltip = new bootstrap.Tooltip(sign);
     }

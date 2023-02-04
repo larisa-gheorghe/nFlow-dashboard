@@ -118,7 +118,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import ApiService from '../services/services.js'
+import axios from "axios"
 
 export default {
     name: 'workflow-details',
@@ -135,25 +136,25 @@ export default {
         stateStatistics: {},
         columnSums: {},
         settings: {},
+        apiService: new ApiService("https://bank.nflow.io/nflow/api/v1")
         };
   },
   async beforeMount() {
-    const workflowDefinition = "https://bank.nflow.io/nflow/api/v1/workflow-definition"
+    try {
+    const { data } = await this.apiService.getWorkflowDefinition()
+    this.allWorkflows = data
 
-    const allWorkflows = await axios.get(workflowDefinition, { dataType: "json" })
-    this.allWorkflows = allWorkflows?.data
+    const statistics = await this.apiService.getWorkflowStatistics(this.workflowType)
+    this.stateStatistics = statistics?.data?.stateStatistics;
 
-    let workflowDef = `https://bank.nflow.io/nflow/api/v1/workflow-definition?type=${this.workflowType}`;
-    let workflowStats = `https://bank.nflow.io/nflow/api/v1/statistics/workflow/${this.workflowType}`;
-
-    const instance = await axios.get(workflowDef, { dataType: "json" });
+    const instance = await this.apiService.getWorkflowType(this.workflowType)
     this.instance = instance?.data[0];
     this.states = instance?.data[0].states;
     this.settings = instance?.data[0].settings;
 
-    const statistics = await axios.get(workflowStats, { dataType: "json" });
-    this.stateStatistics = statistics?.data?.stateStatistics;
-
+    } catch(e) {
+      console.log('Error is', e)
+    }
     this.dataReady = true;
 
     this.columnSums = this.calculateColumnSums();

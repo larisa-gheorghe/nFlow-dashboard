@@ -89,15 +89,16 @@
 </template>
 
 <script>
-import axios from "axios"
 import moment from "moment"
+import ApiService from '../services/services.js'
 
 export default {
     name: "executors-table",
     data() {
         return {
             moment,
-            instances: []
+            instances: [],
+            apiService: new ApiService("https://bank.nflow.io/nflow/api/v1")
         };
     },
     methods: {
@@ -107,26 +108,9 @@ export default {
             } else return moment(date).format('l LTS')
         }
     },
-    mounted() {
-        // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-        // axios.defaults.headers.common['Content-type'] = 'application/json';
-
-        // axios.interceptors.request.use(request => {
-        //   console.log('Starting Request', JSON.stringify(request, null, 2))
-        //   return request
-        // })
-
-        // axios.interceptors.response.use(response => {
-        //   console.log('Response:', JSON.stringify(response, null, 2))
-        //   return response
-        // })
-
-        const url = "https://bank.nflow.io/nflow/api/v1/workflow-executor/";
-        axios
-        .get(url, {
-            dataType: "json",
-        })
-        .then((response) => (this.instances = response.data));
+    async mounted() {
+        const { data } = await this.apiService.getWorkflowExecutors()
+        this.instances = data
     },
 };
 </script>
@@ -134,3 +118,5 @@ export default {
 <style>
 
 </style>
+
+
